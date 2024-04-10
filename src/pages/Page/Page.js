@@ -1,5 +1,7 @@
 import { Button, Text, View } from 'react-native'
 
+import styles from './page.style'
+
 export const Page = ({ navigation }) => {
   return (
     <View>
