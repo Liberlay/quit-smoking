@@ -18,7 +18,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="FourthPage">
+      <Stack.Navigator initialRouteName="FistPage">
         <Stack.Screen
           name="FistPage"
           component={Onboarding.FirstPage}
