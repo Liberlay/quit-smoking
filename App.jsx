@@ -18,7 +18,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="FistPage">
+      <Stack.Navigator initialRouteName="FifthPage">
         <Stack.Screen
           name="FistPage"
           component={Onboarding.FirstPage}
@@ -37,6 +37,11 @@ export default function App() {
         <Stack.Screen
           name="FourthPage"
           component={Onboarding.FourthPage}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="FifthPage"
+          component={Onboarding.FifthPage}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

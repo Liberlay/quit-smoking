@@ -4,57 +4,57 @@ import { Controller, useForm } from 'react-hook-form'
 import { Text, View, Image, TouchableOpacity } from 'react-native'
 import { OnboardingLayout } from 'components/OnboardingLayout/OnboardingLayout'
 
-import styles from './fourthPage.style'
+import styles from './fifthPage.style'
 
-export const FourthPage = ({ navigation, route }) => {
+export const FifthPage = () => {
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm()
-  const onSubmit = (data) => navigation.navigate('FifthPage')
+  const onSubmit = (data) => console.log(data)
   const [selected, setSelected] = useState(undefined)
-  const genders = {
-    male: {
-      icon: icons.male,
-      label: 'Male',
+  const smokes = {
+    cigarettes: {
+      icon: icons.cigarettes,
+      label: 'Cigarettes',
     },
-    female: {
-      icon: icons.female,
-      label: 'Female',
+    iqos: {
+      icon: icons.iqos,
+      label: 'Iqos',
     },
-    nonBinary: {
-      icon: icons.nonBinary,
-      label: 'Non-binary',
+    vape: {
+      icon: icons.vape,
+      label: 'Vape',
     },
   }
 
   return (
     <OnboardingLayout onPress={handleSubmit(onSubmit)}>
       <View style={styles.container}>
-        <Text style={styles.title}>Your Gender</Text>
+        <Text style={styles.title}>Choose what you smoke </Text>
         <Controller
-          name="genders"
+          name="smokes"
           control={control}
           rules={{
-            required: 'Choose your gender',
+            required: 'Choose what you smoke ',
           }}
           render={({ field: { onChange } }) => (
-            <View style={styles.genders}>
-              {Object.entries(genders).map(([key, gender]) => (
+            <View style={styles.smokes}>
+              {Object.entries(smokes).map(([key, smoke]) => (
                 <TouchableOpacity
                   key={key}
-                  style={[styles.gender, selected === key && styles.active]}
+                  style={[styles.smoke, selected === key && styles.active]}
                   onPress={() => (setSelected(key), onChange(key))}
                 >
-                  <Image style={styles.image} source={gender.icon} />
-                  <Text style={styles.label}>{gender.label}</Text>
+                  <Image style={styles.image} source={smoke.icon} />
+                  <Text style={styles.label}>{smoke.label}</Text>
                 </TouchableOpacity>
               ))}
             </View>
           )}
         />
-        {errors.genders && <Text style={styles.error}>{errors.genders.message}</Text>}
+        {errors.smokes && <Text style={styles.error}>{errors.smokes.message}</Text>}
       </View>
     </OnboardingLayout>
   )
