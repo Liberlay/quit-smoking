@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "quit_smoking",
-    "slug": "quit_smoking",
+    "name": "quit-smoking",
+    "slug": "quit-smoking",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./public/assets/icon.png",
