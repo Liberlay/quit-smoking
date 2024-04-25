@@ -4,46 +4,42 @@ import { StyleSheet } from 'react-native'
 export default styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    gap: 140,
+    gap: 30,
     width: '100%',
     height: '100%',
-    marginTop: 60,
   },
   title: {
-    color: 'white',
-    fontSize: 25,
+    textAlign: 'center',
+    color: COLORS.dark,
+    fontSize: 28,
     fontFamily: FONT.bold,
   },
   genders: {
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
     gap: 10,
     width: '100%',
   },
   gender: {
     alignItems: 'center',
+    justifyContent: 'center',
     gap: 15,
-    padding: 15,
+    paddingVertical: 15,
     borderRadius: 15,
     width: 120,
+    height: 150,
   },
   active: {
     borderWidth: 1,
-    borderColor: COLORS.border,
+    borderColor: COLORS.dark,
   },
   image: {
-    width: 50,
-    height: 50,
+    width: 70,
+    height: 70,
   },
   label: {
-    color: 'white',
+    color: COLORS.dark,
     fontSize: 18,
-    fontFamily: FONT.regular,
-  },
-  error: {
-    fontSize: 20,
-    color: COLORS.error,
     fontFamily: FONT.regular,
   },
 })
