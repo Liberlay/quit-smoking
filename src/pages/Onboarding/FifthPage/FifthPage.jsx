@@ -1,20 +1,25 @@
-import { useState } from 'react'
 import { icons } from 'constants'
-import { Controller, useForm } from 'react-hook-form'
+import { errorBorder } from 'constants/theme'
+import { useUserStore } from 'src/storage/user'
+import { useController, useForm } from 'react-hook-form'
+import { PageTracker } from 'components/PageTracker/PageTracker'
 import { Text, View, Image, TouchableOpacity } from 'react-native'
 import { OnboardingLayout } from 'components/OnboardingLayout/OnboardingLayout'
 
 import styles from './fifthPage.style'
 
-export const FifthPage = () => {
+export const FifthPage = ({ navigation }) => {
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm()
-  const onSubmit = (data) => console.log(data)
-  const [selected, setSelected] = useState(undefined)
-  const smokes = {
+
+  const {
+    field: { value, onChange },
+  } = useController({ name: 'smokeType', control, rules: { required: true } })
+
+  const smokeTypes = {
     cigarettes: {
       icon: icons.cigarettes,
       label: 'Cigarettes',
@@ -29,32 +34,33 @@ export const FifthPage = () => {
     },
   }
 
+  const setSmokeType = useUserStore((s) => s.setSmokeType)
+
+  const onSubmit = ({ smokeType }) => (
+    setSmokeType(smokeType), navigation.navigate('SixthPage', { smokeType: value })
+  )
+
   return (
-    <OnboardingLayout onPress={handleSubmit(onSubmit)}>
+    <OnboardingLayout onPress={handleSubmit(onSubmit)} isDisabled={!isValid}>
       <View style={styles.container}>
-        <Text style={styles.title}>Choose what you smoke </Text>
-        <Controller
-          name="smokes"
-          control={control}
-          rules={{
-            required: 'Choose what you smoke ',
-          }}
-          render={({ field: { onChange } }) => (
-            <View style={styles.smokes}>
-              {Object.entries(smokes).map(([key, smoke]) => (
-                <TouchableOpacity
-                  key={key}
-                  style={[styles.smoke, selected === key && styles.active]}
-                  onPress={() => (setSelected(key), onChange(key))}
-                >
-                  <Image style={styles.image} source={smoke.icon} />
-                  <Text style={styles.label}>{smoke.label}</Text>
-                </TouchableOpacity>
-              ))}
-            </View>
-          )}
-        />
-        {errors.smokes && <Text style={styles.error}>{errors.smokes.message}</Text>}
+        <PageTracker />
+        <Text style={styles.title}>Choose what you smoke</Text>
+        <View style={styles.smokeTypes}>
+          {Object.entries(smokeTypes).map(([key, smokeType]) => (
+            <TouchableOpacity
+              key={key}
+              style={[
+                styles.smokeType,
+                errors.smokeType && { ...errorBorder },
+                value === key && styles.active,
+              ]}
+              onPress={() => onChange(key)}
+            >
+              <Image style={styles.image} source={smokeType.icon} />
+              <Text style={styles.label}>{smokeType.label}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
       </View>
     </OnboardingLayout>
   )
