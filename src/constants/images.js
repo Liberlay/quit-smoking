@@ -1,5 +1,5 @@
-import bg from 'images/bg.jpg'
-import happyMan from 'images/happyMan.png'
-import globe from 'images/globe.png'
+import smoke from 'images/smoke.png'
+import lungs from 'images/lungs.png'
+import cigarette from 'images/cigarette.png'
 
-export default { bg, happyMan, globe }
+export default { smoke, lungs, cigarette }
