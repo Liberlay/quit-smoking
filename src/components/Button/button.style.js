@@ -1,20 +1,26 @@
 import { StyleSheet } from 'react-native'
-import { COLORS, FONT } from 'constants/theme'
+import { COLORS, FONT, SHADOW } from 'constants/theme'
 
 export default styles = StyleSheet.create({
-  button: {
+  container: {
     position: 'absolute',
-    bottom: 40,
+    bottom: 25,
+    borderRadius: 20,
+    ...SHADOW,
+  },
+  disabled: {
+    opacity: 0.5,
+  },
+  button: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: 186,
-    height: 48,
-    borderRadius: 18,
-    color: 'black',
-    backgroundColor: COLORS.primary,
+    width: 220,
+    height: 70,
+    borderRadius: 20,
   },
   button_text: {
-    fontSize: 18,
-    fontFamily: FONT.medium,
+    fontSize: 24,
+    fontFamily: FONT.bold,
+    color: COLORS.light,
   },
 })
