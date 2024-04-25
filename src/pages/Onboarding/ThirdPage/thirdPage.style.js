@@ -7,25 +7,20 @@ export default styles = StyleSheet.create({
     gap: 30,
     width: '100%',
     height: '100%',
-    marginTop: 60,
   },
-  text: {
+  title: {
+    textAlign: 'center',
     fontSize: 28,
     fontFamily: FONT.bold,
-    color: 'white',
+    color: COLORS.dark,
   },
   input: {
     textAlign: 'center',
     width: '60%',
     height: 40,
     borderBottomWidth: 2,
-    borderColor: COLORS.border,
-    color: 'white',
+    borderColor: COLORS.dark,
+    color: COLORS.dark,
     fontSize: 20,
-  },
-  error: {
-    fontSize: 20,
-    color: COLORS.error,
-    fontFamily: FONT.regular,
   },
 })
