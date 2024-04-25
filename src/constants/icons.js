@@ -4,6 +4,7 @@ import nonBinary from 'images/gender-nonbinary.png'
 import cigarettes from 'images/cigarettes.png'
 import iqos from 'images/iqos.png'
 import vape from 'images/vape.png'
+import tree from 'images/tree.png'
 
 export default {
   male,
@@ -12,4 +13,5 @@ export default {
   cigarettes,
   iqos,
   vape,
+  tree,
 }
