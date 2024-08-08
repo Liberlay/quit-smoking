@@ -1,62 +1,47 @@
 import { useEffect, useState } from 'react'
-import { errorBorder } from 'constants/theme'
-import { Keyboard, Text, TextInput, View } from 'react-native'
-import { useController, useFormContext } from 'react-hook-form'
+import { useThemeStyles } from 'hooks/useThemeStyles'
+import { Text, TextInput, TouchableOpacity, View } from 'react-native'
 
-import styles from './number.style'
+import makeStyles from './number.style'
 
-export const Number = ({ title, icon, required, name, step, min }) => {
-  const {
-    control,
-    formState: { errors },
-  } = useFormContext()
-
-  const {
-    field: { value, onChange },
-  } = useController({
-    name,
-    control,
-    rules: {
-      required,
-      min,
-    },
-  })
+export const Number = ({ value, onChange, onSubmitEditing, error, title, icon, step, style }) => {
+  const styles = useThemeStyles(makeStyles)
 
   const [inputValue, setInputValue] = useState(String(value || 0))
 
   useEffect(() => {
     setInputValue(String(value || 0))
+    onChange
   }, [value])
 
   return (
-    <View style={styles.container}>
-      {title && <Text style={styles.title}>{title}</Text>}
-      <View style={styles.input_wrapper}>
-        <View style={styles.input_container}>
+    <View style={[styles.container, styles.container[style]]}>
+      {title && <Text style={[styles.title, styles.title[style]]}>{title}</Text>}
+      <View style={styles.input.container}>
+        <View style={[styles.input, styles.input[style], error && styles.input.error]}>
           {icon && (
-            <View style={styles.icon_container}>
+            <View style={[styles.icon.container, styles.icon.container[style], error && styles.icon.container.error]}>
               <Text style={styles.icon}>{icon}</Text>
             </View>
           )}
-          <View style={[styles.input, errors[name] && { ...errorBorder }]}>
-            <Text
-              style={styles.input_controls}
-              onPress={() => value !== 0 && onChange(value - step)}
-            >
-              ―
-            </Text>
-            <TextInput
-              style={styles.input_content}
-              value={inputValue}
-              onChangeText={setInputValue}
-              onBlur={() => (onChange(+inputValue), Keyboard.dismiss())}
-              inputMode="decimal"
-              maxLength={4}
-            />
-            <Text style={styles.input_controls} onPress={() => onChange(value + step)}>
-              +
-            </Text>
-          </View>
+          <TouchableOpacity style={styles.controls.container} onPress={() => value !== 0 && onChange(value - step)}>
+            <Text style={styles.controls}>―</Text>
+          </TouchableOpacity>
+          <TextInput
+            style={styles.input.content}
+            maxLength={4}
+            value={inputValue}
+            inputMode="decimal"
+            onChangeText={setInputValue}
+            onSubmitEditing={onSubmitEditing}
+            onBlur={() => onChange(+inputValue)}
+          />
+          <TouchableOpacity
+            style={styles.controls.container}
+            onPress={() => value + 1 < 10000 && onChange(value + step)}
+          >
+            <Text style={styles.controls}>+</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>

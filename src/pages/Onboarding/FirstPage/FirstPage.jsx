@@ -1,30 +1,25 @@
 import { images } from 'constants'
-import { COLORS } from 'constants/theme'
 import { Image, Text, View } from 'react-native'
-import { LinearGradient } from 'expo-linear-gradient'
+import { useThemeStyles } from 'hooks/useThemeStyles'
 import { OnboardingLayout } from 'components/OnboardingLayout/OnboardingLayout'
 
-import styles from './firstPage.style'
+import makeStyles from './firstPage.style'
 
 export const FirstPage = ({ navigation }) => {
+  const styles = useThemeStyles(makeStyles)
+
   return (
-    <OnboardingLayout title={'Quit now!'} onPress={() => navigation.navigate('SecondPage')}>
-      <View style={styles.images_container}>
-        <Image style={styles.image_smoke} source={images.smoke} />
-        <Image style={styles.image_lungs} source={images.lungs} />
-      </View>
-      <View style={styles.text_container}>
-        <LinearGradient
-          style={styles.wrapper}
-          colors={[COLORS.containerGradientLeft, COLORS.containerGradientRight]}
-          start={{ x: 0, y: 0.5 }}
-          end={{ x: 1, y: 0.5 }}
-        >
-          <Text style={styles.text_title}>Congratulations!</Text>
-          <Text style={styles.text_caption}>
+    <OnboardingLayout buttonLabel={'Quit now!'} onPress={() => navigation.navigate('SecondPage')}>
+      <View style={styles.container}>
+        <View style={styles.image.container}>
+          <Image style={styles.image} source={images.lungsInSmoke} />
+        </View>
+        <View style={styles.text}>
+          <Text style={styles.text.title}>Congratulations!</Text>
+          <Text style={styles.text.caption}>
             Quitting smoking is undeniably one of your most significant well-being choices.
           </Text>
-        </LinearGradient>
+        </View>
       </View>
     </OnboardingLayout>
   )

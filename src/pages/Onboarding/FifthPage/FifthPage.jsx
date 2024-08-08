@@ -1,67 +1,48 @@
-import { icons } from 'constants'
-import { errorBorder } from 'constants/theme'
+import { Input } from 'components/Input'
 import { useUserStore } from 'src/storage/user'
-import { useController, useForm } from 'react-hook-form'
-import { PageTracker } from 'components/PageTracker/PageTracker'
-import { Text, View, Image, TouchableOpacity } from 'react-native'
+import { useThemeStyles } from 'hooks/useThemeStyles'
+import { FormProvider, useForm } from 'react-hook-form'
+import { FemaleIcon, MaleIcon, NonBinaryIcon } from 'constants/icons'
 import { OnboardingLayout } from 'components/OnboardingLayout/OnboardingLayout'
 
-import styles from './fifthPage.style'
+import makeStyles from './fifthPage.style'
 
 export const FifthPage = ({ navigation }) => {
-  const {
-    control,
-    handleSubmit,
-    formState: { errors, isValid },
-  } = useForm()
+  const methods = useForm()
 
-  const {
-    field: { value, onChange },
-  } = useController({ name: 'smokeType', control, rules: { required: true } })
+  const styles = useThemeStyles(makeStyles)
 
-  const smokeTypes = {
-    cigarettes: {
-      icon: icons.cigarettes,
-      label: 'Cigarettes',
-    },
-    iqos: {
-      icon: icons.iqos,
-      label: 'Iqos',
-    },
-    vape: {
-      icon: icons.vape,
-      label: 'Vape',
-    },
-  }
+  const setGender = useUserStore((s) => s.setGender)
 
-  const setSmokeType = useUserStore((s) => s.setSmokeType)
-
-  const onSubmit = ({ smokeType }) => (
-    setSmokeType(smokeType), navigation.navigate('SixthPage', { smokeType: value })
-  )
+  const onSubmit = ({ gender }) => (setGender(gender), navigation.navigate('SixthPage'))
 
   return (
-    <OnboardingLayout onPress={handleSubmit(onSubmit)} isDisabled={!isValid}>
-      <View style={styles.container}>
-        <PageTracker />
-        <Text style={styles.title}>Choose what you smoke</Text>
-        <View style={styles.smokeTypes}>
-          {Object.entries(smokeTypes).map(([key, smokeType]) => (
-            <TouchableOpacity
-              key={key}
-              style={[
-                styles.smokeType,
-                errors.smokeType && { ...errorBorder },
-                value === key && styles.active,
-              ]}
-              onPress={() => onChange(key)}
-            >
-              <Image style={styles.image} source={smokeType.icon} />
-              <Text style={styles.label}>{smokeType.label}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-      </View>
+    <OnboardingLayout
+      title={'Your gender'}
+      onPress={methods.handleSubmit(onSubmit)}
+      isDisabled={!methods.formState.isValid}
+    >
+      <FormProvider {...methods}>
+        <Input.Formed.Radio
+          name="genders"
+          required
+          content={{
+            male: {
+              icon: MaleIcon,
+              label: 'Male',
+            },
+            female: {
+              icon: FemaleIcon,
+              label: 'Female',
+            },
+            nonBinary: {
+              icon: NonBinaryIcon,
+              label: 'Non-binary',
+            },
+          }}
+          style="onboarding"
+        />
+      </FormProvider>
     </OnboardingLayout>
   )
 }

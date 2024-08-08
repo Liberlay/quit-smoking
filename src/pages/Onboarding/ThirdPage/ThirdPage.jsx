@@ -1,15 +1,17 @@
 import { useState } from 'react'
 import { COLORS } from 'constants/theme'
-import { Error } from 'components/Error/Error'
+import { useTheme } from 'hooks/useTheme'
 import { useUserStore } from 'src/storage/user'
+import { useThemeStyles } from 'hooks/useThemeStyles'
 import { useForm, useController } from 'react-hook-form'
-import { PageTracker } from 'components/PageTracker/PageTracker'
 import { Keyboard, Pressable, Text, TextInput } from 'react-native'
 import { OnboardingLayout } from 'components/OnboardingLayout/OnboardingLayout'
 
-import styles from './thirdPage.style'
+import makeStyles from './thirdPage.style'
 
 export const ThirdPage = ({ navigation }) => {
+  const theme = useTheme()
+  const styles = useThemeStyles(makeStyles)
   const {
     control,
     trigger,
@@ -38,14 +40,12 @@ export const ThirdPage = ({ navigation }) => {
   const onSubmit = ({ name }) => (trigger(), setName(name), navigation.navigate('FourthPage'))
 
   return (
-    <OnboardingLayout onPress={handleSubmit(onSubmit)} isDisabled={!isValid}>
+    <OnboardingLayout title={'Your name'} onPress={handleSubmit(onSubmit)} isDisabled={!isValid}>
       <Pressable style={styles.container} onPress={() => Keyboard.dismiss()}>
-        <PageTracker />
-        <Text style={styles.title}>Your name</Text>
         <TextInput
-          style={styles.input}
+          style={[styles.input, errors.name && styles.input.error]}
           placeholder={placeholder}
-          placeholderTextColor={COLORS.dark}
+          placeholderTextColor={COLORS[theme].text.primary}
           autoCompleteType="name"
           textContentType="name"
           returnKeyType="next"
@@ -55,7 +55,7 @@ export const ThirdPage = ({ navigation }) => {
           onBlur={() => (setIsFocused(false), trigger())}
           onSubmitEditing={handleSubmit(onSubmit)}
         />
-        {errors.name && <Error text={errors.name.message} />}
+        {errors.name && <Text style={styles.error}>{errors.name.message}</Text>}
       </Pressable>
     </OnboardingLayout>
   )

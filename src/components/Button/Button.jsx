@@ -1,24 +1,18 @@
-import { COLORS } from 'constants/theme'
-import { LinearGradient } from 'expo-linear-gradient'
+import { useThemeStyles } from 'hooks/useThemeStyles'
 import { Text, TouchableOpacity } from 'react-native'
 
-import styles from './button.style'
+import makeStyles from './button.style'
 
-export const Button = ({ onPress, title, isDisabled }) => {
+export const Button = ({ title, onPress, isDisabled }) => {
+  const styles = useThemeStyles(makeStyles)
+
   return (
     <TouchableOpacity
-      style={[styles.container, isDisabled && styles.disabled]}
+      style={[styles.button, isDisabled && styles.button.disabled]}
       activeOpacity={0.5}
       onPress={onPress}
     >
-      <LinearGradient
-        style={styles.button}
-        colors={[COLORS.containerGradientLeft, COLORS.containerGradientRight]}
-        start={{ x: 0, y: 0.5 }}
-        end={{ x: 1, y: 0.5 }}
-      >
-        <Text style={styles.button_text}>{title}</Text>
-      </LinearGradient>
+      <Text style={styles.button.text}>{title}</Text>
     </TouchableOpacity>
   )
 }

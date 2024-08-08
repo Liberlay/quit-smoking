@@ -8,6 +8,9 @@ module.exports = function (api) {
         {
           alias: {
             pages: './src/pages',
+            utils: './src/utils',
+            tasks: './src/tasks',
+            hooks: './src/hooks',
             constants: './src/constants',
             components: './src/components',
             assets: './public/assets',
