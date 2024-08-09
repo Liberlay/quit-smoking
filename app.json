@@ -1,0 +1,39 @@
+{
+  "expo": {
+    "name": "Quit Smoking",
+    "slug": "quit-smoking",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./public/assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./public/assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "infoPlist": {
+        "UIBackgroundModes": ["fetch", "remote-notification", "processing"]
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./public/assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.liberlay.quitsmoking"
+    },
+    "web": {
+      "favicon": "./public/assets/favicon.png"
+    },
+    "plugins": ["expo-font", "expo-notifications"],
+    "extra": {
+      "eas": {
+        "projectId": "c96da93a-a9d0-4590-891a-6fb2bf25116c"
+      }
+    },
+    "owner": "liberlay"
+  }
+}
