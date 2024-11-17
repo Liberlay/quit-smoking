@@ -29,9 +29,9 @@ const COLORS = {
 
     tile: {
       bg: 'rgba(255,255,255,0.25)',
-      border: 'rgba(0,0,0,0.2)',
+      border: '#273C31',
       progress: 'rgba(39,60,49,0.15)',
-      icon: 'rgba(39,60,49,0.2)',
+      icon: '#273C31',
     },
 
     error: {
@@ -103,10 +103,10 @@ const COLORS = {
     },
 
     tile: {
-      bg: '#1E473A',
+      bg: '#3A3A3A',
       border: 'transparent',
-      progress: '#7B8F82',
-      icon: '#273C31',
+      progress: '#1E473A',
+      icon: '#D3D3D3',
     },
 
     error: {

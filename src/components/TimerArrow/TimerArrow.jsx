@@ -10,37 +10,20 @@ export const TimerArrow = ({ time }) => {
   const styles = useThemeStyles(makeStyles)
 
   const isMounted = useIsMounted()
-  const rotate = useSharedValue(0)
+  const rotate = useSharedValue(360 + (time / 60) * 360)
   const opacity = useSharedValue(0)
-  const [isFirstAnimation, setIsFirstAnimation] = useState(true)
 
-  const animateRotation = useAnimatedStyle(() => {
-    const [fullCircle, offset] = (() => {
-      // if (time > 3600) return [86400, 2]
-      // if (time > 60) return [3600, 1]
-      return [60, 0]
-    })()
-
-    return {
-      transform: [
-        {
-          rotate: withTiming(
-            `${(rotate.value =
-              offset * 360 + (isMounted ? (time + 1) / fullCircle : Math.floor(time / fullCircle)) * 360)}deg`,
-            {
-              duration: 1000,
-              easing: !isFirstAnimation ? Easing.linear(Easing.linear) : Easing.inOut(Easing.quad),
-            }
-          ),
-        },
-      ],
-      opacity: withTiming((opacity.value = isMounted ? 1 : 0), { duration: 1000 }),
-    }
-  })
-
-  useEffect(() => {
-    setTimeout(() => setIsFirstAnimation(false), 1000)
-  }, [])
+  const animateRotation = useAnimatedStyle(() => ({
+    transform: [
+      {
+        rotate: withTiming(`${(rotate.value = 360 + (isMounted ? (time + 1) / 60 : time / 60) * 360)}deg`, {
+          duration: 1000,
+          easing: Easing.linear(Easing.linear),
+        }),
+      },
+    ],
+    opacity: withTiming((opacity.value = isMounted ? 1 : 0), { duration: 1000 }),
+  }))
 
   return (
     <Animated.View style={[styles.container, animateRotation]}>

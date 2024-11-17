@@ -11,7 +11,6 @@ export const Number = ({ value, onChange, onSubmitEditing, error, title, icon, s
 
   useEffect(() => {
     setInputValue(String(value || 0))
-    onChange
   }, [value])
 
   return (
@@ -33,8 +32,8 @@ export const Number = ({ value, onChange, onSubmitEditing, error, title, icon, s
             value={inputValue}
             inputMode="decimal"
             onChangeText={setInputValue}
-            onSubmitEditing={onSubmitEditing}
             onBlur={() => onChange(+inputValue)}
+            onSubmitEditing={() => (onChange(+inputValue), onSubmitEditing())}
           />
           <TouchableOpacity
             style={styles.controls.container}

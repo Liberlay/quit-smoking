@@ -11,12 +11,22 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
-        "UIBackgroundModes": ["fetch", "remote-notification", "processing"]
-      }
+        "UIBackgroundModes": [
+          "fetch",
+          "remote-notification",
+          "processing",
+          "fetch",
+          "remote-notification",
+          "processing"
+        ]
+      },
+      "bundleIdentifier": "com.liberlay.quitsmoking"
     },
     "android": {
       "adaptiveIcon": {
@@ -28,7 +38,10 @@
     "web": {
       "favicon": "./public/assets/favicon.png"
     },
-    "plugins": ["expo-font", "expo-notifications"],
+    "plugins": [
+      "expo-font",
+      "expo-notifications"
+    ],
     "extra": {
       "eas": {
         "projectId": "c96da93a-a9d0-4590-891a-6fb2bf25116c"

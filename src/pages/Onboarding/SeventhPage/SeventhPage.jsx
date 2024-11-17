@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { View } from 'react-native'
 import { Input } from 'components/Input'
 import { useUserStore } from 'src/storage/user'
@@ -30,7 +30,7 @@ export const SeventhPage = ({ route, navigation }) => {
   const inputContent = {
     cigarettes: {
       title1: 'How many cigarettes did you smoke per day?',
-      title2: 'Enter the nubmer of cigarettes included per pack?',
+      title2: 'Enter the number of cigarettes included per pack?',
       title3: 'How much did a pack of cigarettes cost?',
     },
     iqos: {
@@ -58,8 +58,6 @@ export const SeventhPage = ({ route, navigation }) => {
     setSmoke(data)
     navigation.navigate('EighthPage')
   }
-
-  console.log(methods.getValues())
 
   return (
     <OnboardingLayout onPress={methods.handleSubmit(onSubmit)} isDisabled={!methods.formState.isValid}>

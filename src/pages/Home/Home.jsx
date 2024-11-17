@@ -30,7 +30,7 @@ export const Home = () => {
           <View style={styles.emergency.circle} />
           <Popup style="warning" isVisible={isVisible} setIsVisible={setIsVisible}>
             <View style={styles.modal.text}>
-              <Text style={styles.modal.title}>Do you really want to quit smoking?</Text>
+              <Text style={styles.modal.title}>Do you really want to start smoking?</Text>
               <Text style={styles.modal.caption}>If you press the yes button, the timer will reset.</Text>
             </View>
             <View style={styles.buttons}>

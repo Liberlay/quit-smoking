@@ -19,6 +19,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { BottomNavigator } from 'components/BottomNavigator/BottomNavigator'
 import { registerForPushNotificationsAsync } from 'utils/notifications'
+import { processGoals } from 'tasks/goals'
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -64,6 +65,12 @@ export default function App() {
       notificationListener.current && Notifications.removeNotificationSubscription(notificationListener.current)
       responseListener.current && Notifications.removeNotificationSubscription(responseListener.current)
     }
+  }, [])
+
+  useEffect(() => {
+    processGoals()
+    const interval = setInterval(processGoals, 60000)
+    return () => clearInterval(interval)
   }, [])
 
   useEffect(() => {
@@ -116,3 +123,9 @@ export default function App() {
     </NavigationContainer>
   )
 }
+
+// {"startTime":1729386000000,"duration":86400000,"statistics":{"savedMoney":5,"savedTime":10}}
+// {"startTime":1729731600000,"duration":86400000,"statistics":{"savedMoney":5,"savedTime":100}}
+// {"startTime":1731722400000,"duration":86400000,"statistics":{"savedMoney":5,"savedTime":100}}
+// {"startTime":1732413600000,"duration":86400000,"statistics":{"savedMoney":5,"savedTime":100}}
+// {"state":{"startTime":1731768906448,"lastProcessingTime":null,"intervals":[{"startTime":1729386000000,"duration":86400000,"statistics":{"savedMoney":5,"savedTime":10}},{"startTime":1729731600000,"duration":86400000,"statistics":{"savedMoney":5,"savedTime":100}},{"startTime":1731722400000,"duration":86400000,"statistics":{"savedMoney":5,"savedTime":100}},{"startTime":1732413600000,"duration":86400000,"statistics":{"savedMoney":5,"savedTime":100}}]},"version":0}

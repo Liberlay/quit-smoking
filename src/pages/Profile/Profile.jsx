@@ -28,7 +28,7 @@ export const UserSettings = () => {
   const inputContent = {
     cigarettes: {
       title1: 'How many cigarettes did you smoke per day?',
-      title2: 'Enter the nubmer of cigarettes included per pack?',
+      title2: 'Enter the number of cigarettes included per pack?',
       title3: 'How much did a pack of cigarettes cost?',
     },
     iqos: {
@@ -96,7 +96,7 @@ export const UserSettings = () => {
         <Input.Formed.Number
           title={inputContent[smokeType].title3}
           icon={'$'}
-          name="packPrice"
+          name="price"
           required
           step={0.5}
           min={0.1}

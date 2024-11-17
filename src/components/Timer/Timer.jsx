@@ -1,4 +1,4 @@
-import { Text, View } from 'react-native'
+import { AppState, Text, View } from 'react-native'
 import { useEffect, useRef, useState } from 'react'
 import { useThemeStyles } from 'hooks/useThemeStyles'
 import { useIntervalsStore } from 'src/storage/intervals'
@@ -25,6 +25,16 @@ export const Timer = () => {
     return [`${hours}:${minutes}`, '']
   })()
 
+  const appState = useRef(AppState.currentState)
+  const [isAppVisible, setIsAppVisible] = useState(appState.current === 'active')
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', (nextAppState) => {
+      appState.current = nextAppState === 'active'
+      setIsAppVisible(appState.current)
+    })
+    return () => subscription.remove()
+  }, [])
+
   useEffect(() => {
     setNow(Date.now())
 
@@ -37,7 +47,7 @@ export const Timer = () => {
   return (
     <View style={styles.container}>
       <View style={styles.timer}>
-        <TimerArrow key={startTime} time={time} />
+        {isAppVisible && <TimerArrow key={startTime} time={time} />}
         <Text style={styles.timer.label}>Time you didn't smoke</Text>
         <View style={styles.counter.container}>
           <Text style={styles.counter.top}>{formatTime[0]}</Text>

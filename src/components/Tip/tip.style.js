@@ -10,7 +10,7 @@ export default makeStyles = (theme) =>
       width: '100%',
       overflow: 'hidden',
       borderColor: COLORS[theme].tile.border,
-      backgroundColor: COLORS[theme].tile.bg,
+      backgroundColor: COLORS[theme].tile.progress,
     },
 
     tip: {

@@ -6,7 +6,7 @@ import { persist, createJSONStorage } from 'zustand/middleware'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export const useIntervalsStore = create(persist(immer((set, get) => ({
-  startTime: null,
+  startTime: Date.now(),
   lastProcessingTime: null,
   intervals: [],
 
@@ -26,7 +26,11 @@ export const useIntervalsStore = create(persist(immer((set, get) => ({
   getActualIntervals: () => [...get().intervals, get().getCurrentInterval()],
   getSavedMoney: () => get().getActualIntervals().reduce((sum, i) => sum + i.statistics.savedMoney, 0),
   getSavedTime: () => get().getActualIntervals().reduce((sum, i) => sum + i.statistics.savedTime, 0),
-  savedPerMonth: () => get().getActualInterval().filter(i => dayjs(i.startTime).month === dayjs().month).reduce((sum, i) => sum + i.statistics.savedMoney, 0),
+  savedPerMonth: () => get().getActualIntervals().filter(i => dayjs(i.startTime).month === dayjs().month).reduce((sum, i) => sum + i.statistics.savedMoney, 0),
   saveCurrentInterval: () => set((s) => { s.intervals.push(get().getCurrentInterval()) })
-
-})), { name: 'intervals', storage: createJSONStorage(() => AsyncStorage) }))
+})), { name: 'intervals', storage: createJSONStorage(() => AsyncStorage), version: 0, migrate: (s, ver) => {
+  // if (ver <= 0) {
+  //   s.intervals = s.intervals.map(i => ({...i, qwe: 1}))
+  // }
+  return s
+} }))

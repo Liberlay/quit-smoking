@@ -8,7 +8,7 @@ export default makeStyles = (theme) =>
       alignItems: 'center',
       justifyContent: 'space-between',
       paddingTop: 10,
-      paddingBottom: 30,
+      paddingBottom: 20,
       paddingHorizontal: 20,
       width: '100%',
     },
